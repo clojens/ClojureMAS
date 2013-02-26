@@ -19,7 +19,7 @@ and to test run:
 
     curl -X GET http://localhost:3000
 
-[resource][2]:
+I used [this resource][2].
 [2]: http://mmcgrana.github.com/2010/08/clojure-rest-api.html
 
 To add any feature use can just type C-c C-l from emacs if it was jacked in. To do it: M-x nrepl-jack-in
