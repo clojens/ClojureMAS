@@ -1,3 +1,6 @@
+--------------------------------------------------------------------------------
+-- The server:
+
 # clojure-webservice
 
 FIXME
@@ -14,11 +17,6 @@ To start a web server for the application, run:
 
     lein ring server
 
-## License
-
-Copyright © 2013 FIXME
-
-# ------------------------------------------------------------------------------------------
 # -- my readme
 
 to run it lein deps; lein ring server;
@@ -30,3 +28,21 @@ http://mmcgrana.github.com/2010/08/clojure-rest-api.html
 nrepl-jack-in. Dont need to restart server just C-c C-l.
 
 to print using (.println System/out "")
+
+--------------------------------------------------------------------------------
+-- The client
+
+# clojure-ws-client
+
+A Clojure library designed to ... well, that part is up to you.
+
+## Usage
+
+FIXME
+
+## License
+
+Copyright © 2013 FIXME
+
+Distributed under the Eclipse Public License, the same as Clojure.
+
