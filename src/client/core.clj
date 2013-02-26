@@ -1,10 +1,10 @@
 (ns client.core
   (:gen-class)
-  (:require utils.serialization)
+  (:require base.serialization)
   (:require [clj-http.client :as client]))
 
 (defn runr[addr expr]
-  (let [expr-str     (clj-http.util/url-encode (utils.serialization/seri expr))
+  (let [expr-str     (clj-http.util/url-encode (base.serialization/seri expr))
         encoded-dots (clojure.string/replace expr-str "." "%2E")
         request-str  (str addr "/repl/" encoded-dots)]
     ;; (print request-str)

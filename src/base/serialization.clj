@@ -1,4 +1,4 @@
-(ns utils.serialization)
+(ns base.serialization)
 
 (defn seri[x]
   (if (instance? String x)
