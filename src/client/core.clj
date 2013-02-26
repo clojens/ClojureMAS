@@ -22,8 +22,3 @@
       "exiting"
       (do (println (runr (or addr "http://localhost:3000") r))
           (recur (prompt-read))))))
-
-(defn -main [& [addr]]
-  (if (not addr)
-    (client.core/replr)
-    (client.core/replr addr)))
