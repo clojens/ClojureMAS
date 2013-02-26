@@ -1,9 +1,6 @@
 --------------------------------------------------------------------------------
--- The server:
 
-# clojure-webservice
-
-FIXME
+# clojure-webservice server
 
 ## Prerequisites
 
@@ -15,26 +12,21 @@ You will need [Leiningen][1] 1.7.0 or above installed.
 
 To start a web server for the application, run:
 
+    lein deps
     lein ring server
 
-# -- my readme
+and to test run:
 
-to run it lein deps; lein ring server;
+    curl -X GET http://localhost:3000
 
-and then: curl -X GET http://localhost:3000
+[resource][2]:
+[2]: http://mmcgrana.github.com/2010/08/clojure-rest-api.html
 
-http://mmcgrana.github.com/2010/08/clojure-rest-api.html
-
-nrepl-jack-in. Dont need to restart server just C-c C-l.
-
-to print using (.println System/out "")
-
---------------------------------------------------------------------------------
--- The client
+To add any feature use can just type C-c C-l from emacs if it was jacked in. To do it: M-x nrepl-jack-in
 
 # clojure-ws-client
 
-A Clojure library designed to ... well, that part is up to you.
+a client to the server
 
 ## Usage
 
@@ -42,7 +34,7 @@ FIXME
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright(c) 2013 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
