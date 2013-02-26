@@ -26,6 +26,11 @@ I used [this resource][2].
 
 To add any feature use can just type C-c C-l from emacs if it was jacked in. To do it: M-x nrepl-jack-in
 
+## Usage
+
+    java -jar clj-mas.jar server [port]
+
+    # and it starts listening...
 
 clojure-ws-client
 =================
@@ -34,7 +39,16 @@ a client to the server
 
 ## Usage
 
-FIXME
+    java -jar clj-mas.jar client [port]
+
+    Repl>1
+    1
+    Repl>(replr)
+    Remote>(/ 1 )
+    (:done 1)
+    Remote>:q
+    exiting
+    Repl>:q
 
 ## License
 
