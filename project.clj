@@ -1,7 +1,7 @@
 (defproject clj-mas "0.0.1"
   :description "REST datastore interface. Server and a client"
   :url "http://github.com/FIXME"
-  :main clojure-ws-client.core ; should I add id?
+  :main client.core ; should I add id?
   :dependencies
     [[org.clojure/clojure "1.3.0"]
      [ring/ring-jetty-adapter "0.2.5"]

@@ -1,7 +1,7 @@
 (ns service.web
   (:use compojure.core)
   (:use ring.middleware.json-params)
-  (:require ws.repl.utils)
+  (:require client.core)
   (:require [clj-json.core :as json]))
 
 (defn json-response [data & [status]]

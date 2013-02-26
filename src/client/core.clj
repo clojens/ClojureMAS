@@ -1,10 +1,12 @@
-(ns clojure-ws-client.core
+(ns client.core
   (:gen-class)
   (:require [clj-http.client :as client]))
 
 (defn runr[addr expr]
-  (let [expr-str (clj-http.util/url-encode (str expr))
-        request-str (str addr "/repl/" expr-str)]
+  (let [expr-str     (clj-http.util/url-encode (str expr))
+        encoded-dots (clojure.string/replace expr-str "." "%2E")
+        request-str  (str addr "/repl/" encoded-dots)]
+    ;; (print request-str)
     (read-string (:body (client/get request-str)))))
 
 (defn prompt-read[]
@@ -22,6 +24,5 @@
 
 (defn -main [& [addr]]
   (if (not addr)
-    (clojure-ws-client.core/replr)    
-    (clojure-ws-client.core/replr addr)))
-    
+    (client.core/replr)
+    (client.core/replr addr)))

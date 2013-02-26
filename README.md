@@ -1,6 +1,8 @@
 --------------------------------------------------------------------------------
 
-# clojure-webservice server
+
+clojure-webservice server
+===========================
 
 ## Prerequisites
 
@@ -24,7 +26,9 @@ I used [this resource][2].
 
 To add any feature use can just type C-c C-l from emacs if it was jacked in. To do it: M-x nrepl-jack-in
 
-# clojure-ws-client
+
+clojure-ws-client
+=================
 
 a client to the server
 
@@ -38,3 +42,24 @@ Copyright(c) 2013 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
+fixmes
+======
+
+default action must be redirect to /repl/(+ 2 2) page
+
+(runr "http://localhost:3000" '(clojure.core/+ 2 2))
+doesnt work, produces:
+Exception 404  clj-http.client/wrap-exceptions/fn--2424 (client.clj:35)
+http://localhost:3000/repl/%28clojure.core%2F%2B+2+2%29
+ because it doesn't allow encoded slashes.
+I guess it is like here:
+http://www.jampmark.com/web-scripting/5-solutions-to-url-encoded-slashes-problem-in-apache.html
+but with jetty web-server.
+
+notes
+=====
+
+(use 'ring.adapter.jetty)
+
+(defn start-web []
+  (run-jetty (var my-site) {:port 8080 :join? false}))
