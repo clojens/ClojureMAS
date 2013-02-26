@@ -63,3 +63,8 @@ notes
 
 (defn start-web []
   (run-jetty (var my-site) {:port 8080 :join? false}))
+
+dependencies
+============
+
+A client depends on serizlization and doesn't depend on the server. But the server does depend both on serizlization and on the client. This is because server can also use remote methods
