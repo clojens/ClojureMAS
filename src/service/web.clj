@@ -1,4 +1,4 @@
-(ns cabinet.web
+(ns service.web
   (:use compojure.core)
   (:use ring.middleware.json-params)
   (:require ws.repl.utils)
@@ -28,21 +28,10 @@
 
 (defroutes handler
   (GET "/" []
-       "try /repl/expr instead")
+       "(:error \"try /repl/expr instead\")")
   (GET "/repl/:expr" [expr]
        (reply-repl expr)))
   
 (def app
   (-> handler
       wrap-json-params))
-
-(comment
-(defroutes handler
-  (GET "/elems/:id" [id]
-       (json-response (elem/get id)))
-
-  (PUT "/elems/:id" [id attrs]
-       (json-response (elem/put id attrs)))
-
-  (DELETE "/elems/:id" [id]
-          (json-response (elem/delete id)))))

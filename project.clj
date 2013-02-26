@@ -1,4 +1,4 @@
-(defproject cabinet "0.0.1"
+(defproject clj-mas "0.0.1"
   :description "REST datastore interface. Server and a client"
   :url "http://github.com/FIXME"
   :main clojure-ws-client.core ; should I add id?
@@ -11,7 +11,7 @@
      [clj-http "0.1.3"]]
   :plugins [[lein-ring "0.8.2"]]
   :profiles {:dev {:dependencies [[ring-mock "0.1.3"]]}}
-  :ring {:handler cabinet.web/app}
+  :ring {:handler service.web/app}
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dev-dependencies
