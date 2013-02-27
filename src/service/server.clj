@@ -4,29 +4,21 @@
   (:require service.web)
   (:gen-class))
 
-(let [local-servers (atom {})] ; { port thread }
+(let [local-servers (atom {})] ; { port server }
   (defn start-server [ port ]
-    (when (= (@local-servers port) nil)
-      (let [server (atom nil)
-            thread (Thread.
-                    (fn[]
-                      (println "Starting server")
-                      (swap! server
-                             (fn[x]
-                               (jetty/run-jetty service.web/handler
-                                               {:port port :join? false})))))]
-        (swap! local-servers assoc port [server thread])
-        (.start thread)
-        )))
+    "starts a server on port. If no association with a server creates new one"
+    (println "Starting server")
+    (if (= (@local-servers port) nil)
+      (let [server (jetty/run-jetty service.web/handler
+                                    {:port port :join? false})]
+        (swap! local-servers assoc port server))
+      (let [server (@local-servers port)]
+        (.start server)))
+    server)
 
   (defn shutdown-server [ port ]
-    "return nil if no such server found and Exception raised and returns t otherwise"
-    (let [ thread (@local-servers port) ]
-      (when thread
-        (try (do (.interrupt thread)
-                 (swap! local-servers dissoc port)
-                 true)
-             (catch Exception ex      nil)))))
-
-  (defn debug-local-servers[] local-servers))
-      
+    "tries to find a server by port and stop it"
+    (let [ server (@local-servers port) ]
+      (when server
+        (println "Stopping server")
+        (.stop server)))))
