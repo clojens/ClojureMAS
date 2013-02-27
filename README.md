@@ -70,13 +70,13 @@ I guess it is like here:
 http://www.jampmark.com/web-scripting/5-solutions-to-url-encoded-slashes-problem-in-apache.html
 but with jetty web-server.
 
-notes
+Ideas
 =====
 
-(use 'ring.adapter.jetty)
+agent = http://hostname:port. Each agent has its own dedicated port.
 
-(defn start-web []
-  (run-jetty (var my-site) {:port 8080 :join? false}))
+notes
+=====
 
 Tried with 2 comps and got:
 

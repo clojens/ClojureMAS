@@ -1,8 +1,7 @@
 (ns main
+  "Entry point of a program"
   (:use client.core)
-  (:use ring.adapter.jetty)
-  (:require service.web)
-  (:require clojure.main)
+  (:use [service.server :only [start-server]])
   (:gen-class))
 
 (def usage "Usage: app client | app server [port]")
@@ -14,9 +13,7 @@
     (client.core/repl)))
 
 (defn main-server [ [port] ]
-  (println "Starting server")
-  (run-jetty service.web/handler {:port (read-string (or port "3000"))
-                                  :join? false}))
+  (start-server (read-string (or port "3000"))))
 
 (defn -main [ & args ]
   (if (empty? args)

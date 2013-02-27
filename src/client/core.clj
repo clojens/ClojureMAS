@@ -1,4 +1,5 @@
 (ns client.core
+  "Defines repl and remote repl for client"
   (:gen-class)
   (:require base.serialization)
   (:require [clj-http.client :as client]))
