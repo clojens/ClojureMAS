@@ -78,6 +78,12 @@ notes
 (defn start-web []
   (run-jetty (var my-site) {:port 8080 :join? false}))
 
+Tried with 2 comps and got:
+
+    (:error java.lang.IllegalArgumentException: Host name may not be null)
+
+with firewall. And without firewall all worked fine
+
 dependencies
 ============
 
