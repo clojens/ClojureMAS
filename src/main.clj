@@ -1,7 +1,7 @@
 (ns main
   "Entry point of a program"
   (:use client.core)
-  (:use [service.server :only [start-server]])
+  (:use [service.server :only [server-start]])
   (:gen-class))
 
 (def usage "Usage: app client | app server [port]")
@@ -13,7 +13,7 @@
     (client.core/repl)))
 
 (defn main-server [ [port] ]
-  (start-server (read-string (or port "3000"))))
+  (server-start (read-string (or port "3000"))))
 
 (defn -main [ & args ]
   (if (empty? args)
