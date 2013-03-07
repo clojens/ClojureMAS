@@ -1,9 +1,10 @@
-(defproject clj-mas "0.0.1"
+(defproject clj-mas "0.0.2"
   :description "REST datastore interface. Server and a client"
   :url "http://github.com/FIXME"
   :main main
   :dependencies
-    [[org.clojure/clojure "1.3.0"]
+    [;[org.clojure/clojure "1.3.0"]
+     [android/clojure "1.4.0"]
      [ring/ring-jetty-adapter "0.2.5"]
      [ring-json-params "0.1.0"]
      [compojure "0.4.0"]
