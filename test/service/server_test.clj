@@ -32,5 +32,20 @@
     (is (and (start-shutdown-testfun 1338)
              (start-shutdown-testfun 13389)
              (start-shutdown-testfun 1338)
-             (start-shutdown-testfun 13389)))
-))
+             (start-shutdown-testfun 13389))))
+
+    (testing "client testing."
+      (is (= '(:done 2)
+             (create-eval-shutdown-testfun 1339 '(clojure.core/inc 1))))
+      (is (= '(:done "1.2, 1/2")
+             (create-eval-shutdown-testfun 1339 "1.2, 1/2")))
+     (is (= '(:done (:done 4))
+            (create-eval-shutdown-testfun 3000 '(client.core/runr "http://localhost:3000" '(+ 2 2)))))
+      (is (= '(:done 13)
+             (create-eval-shutdown-testfun 3000
+                   '(let [[done-or-error res & _]
+                          (client.core/runr "http://localhost:3000" '(+ 2 2))]
+                      (when (= done-or-error :done)
+                        (+ res (* 3 3))))))
+          "complicated runr-request in runr-request"))
+)
