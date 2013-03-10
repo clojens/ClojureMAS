@@ -30,7 +30,7 @@
       (.stop server))))
 
 (defn server-running?
-  "Checks if server is running by given port"
+  "Checks if server is running by given port in frames of this application"
   [ port ]
   (let [server (@local-servers port)]
     (and server

@@ -2,7 +2,6 @@
   "This namespace is for behaviour of the server, how it should reply, what routes etc"
   (:use compojure.core)
   (:use ring.middleware.json-params)
-  (:require client.core) ;; we want this namespace to be accessible to to able to do nested requests
   (:require base.serialization)
   (:require [clj-json.core :as json]))
 

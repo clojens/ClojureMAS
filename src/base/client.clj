@@ -1,7 +1,8 @@
-(ns client.core
+(ns base.client
   "Defines repl and remote repl for client"
   (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
   (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder])
+  (:require clojure.string)
   (:gen-class)
   (:require base.serialization))
 

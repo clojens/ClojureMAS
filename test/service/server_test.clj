@@ -1,6 +1,6 @@
 (ns service.server-test
   (:use clojure.test
-        client.core
+        base.client
         service.server))
 
 (defn create-eval-stop-testfun [ port expr ]
@@ -40,11 +40,11 @@
       (is (= '(:done "1.2, 1/2")
              (create-eval-stop-testfun 1339 "1.2, 1/2")))
      (is (= '(:done (:done 4))
-            (create-eval-stop-testfun 3000 '(client.core/runr "http://localhost:3000" '(+ 2 2)))))
+            (create-eval-stop-testfun 3000 '(base.client/runr "http://localhost:3000" '(+ 2 2)))))
       (is (= '(:done 13)
              (create-eval-stop-testfun 3000
                    '(let [[done-or-error res & _]
-                          (client.core/runr "http://localhost:3000" '(+ 2 2))]
+                          (base.client/runr "http://localhost:3000" '(+ 2 2))]
                       (when (= done-or-error :done)
                         (+ res (* 3 3))))))
           "complicated runr-request in runr-request"))
