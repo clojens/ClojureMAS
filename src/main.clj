@@ -7,8 +7,7 @@
 
 (defn main-client[ ]
   (println "Starting client")
-  (println "Here is a simple repl. To enter remote repl type 'replr[& [addr]]', where addr = localhost:3000 by default")
-  (println "")
+  (println "Here is a simple repl. To get more information type: (find-doc \"server-\") and (find-doc \"replr\"")
   (binding [*ns* (find-ns 'main)]
     (client.core/repl)
     (doall (map server-shutdown (server-available-servers)))))
