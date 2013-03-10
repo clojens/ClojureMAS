@@ -29,10 +29,20 @@
       (do (println (eval-fn r))
           (recur (prompt-read prompt))))))
 
-(defn replr[& [addr]]
+(defn replr
+  "starts a remote repl that works remotely on addr  which has default value = http://localhost:3000"
+  [& [addr]]
   (println "Remote read eval print loop(remote REPL)")
   (repl-gen (catch-all #(runr (or addr "http://localhost:3000") %))
             "Remote"))
+
+(defn replr-local
+  "starts a remote repl that works remotely on localhost which has default value = 3000"
+  [& [port]]
+  (println "Remote read eval print loop(remote REPL on localhost)")
+  (repl-gen (catch-all #(runr (str "http://localhost:"
+                                   (or port 3000)) %))
+            "RemoteLH"))
 
 (defn repl[]
   (print "Read eval print loop(REPL)")
