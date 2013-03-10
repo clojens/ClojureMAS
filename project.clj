@@ -1,4 +1,4 @@
-(defproject clj-mas "0.0.2"
+(defproject clj-mas "0.0.3"
   :description "A client for distributed computations"
   :url "http://github.com:fallen-s4e/ClojureMAS"
   :main main
