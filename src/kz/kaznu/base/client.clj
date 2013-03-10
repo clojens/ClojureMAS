@@ -1,10 +1,10 @@
-(ns base.client
+(ns kz.kaznu.base.client
   "Defines repl and remote repl for client"
   (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
   (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder])
   (:require clojure.string)
   (:gen-class)
-  (:require base.serialization))
+  (:require kz.kaznu.base.serialization))
 
 ;; requesting http through java API
 
@@ -40,7 +40,7 @@
          (catch Exception ex `(:error ~(str ex))))))
 
 (defn runr[addr expr]
-  (let [expr-str     (URLEncoder/encode (base.serialization/seri expr) "UTF-8")
+  (let [expr-str     (URLEncoder/encode (kz.kaznu.base.serialization/seri expr) "UTF-8")
         encoded-dots (clojure.string/replace expr-str "." "%2E")
         request-str  (str addr "/repl/" encoded-dots)]
     (read-string (request-get request-str))))

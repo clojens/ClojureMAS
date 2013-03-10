@@ -1,7 +1,7 @@
-(ns service.server
+(ns kz.kaznu.service.server
   "This namespace for functions on server: starting closing, starting in new thread etc"
   (:require [ring.adapter.jetty :as jetty])
-  (:require service.web)
+  (:require kz.kaznu.service.web)
   (:gen-class))
 
 (defonce local-servers (atom {})) ; { port server }
@@ -13,7 +13,7 @@
   [ port ]
   (println "Starting server")
   (if (= (@local-servers port) nil)
-    (let [server (jetty/run-jetty service.web/handler
+    (let [server (jetty/run-jetty kz.kaznu.service.web/handler
                                   {:port port :join? false})]
       (swap! local-servers assoc port server)
       server)

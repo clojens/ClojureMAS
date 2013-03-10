@@ -1,7 +1,7 @@
 (defproject clj-mas "0.0.3"
   :description "A client for distributed computations"
   :url "http://github.com:fallen-s4e/ClojureMAS"
-  :main main
+  :main kz.kaznu.main
   :dependencies
     [[org.clojure/clojure "1.3.0"]
      ;[android/clojure "1.4.0"]

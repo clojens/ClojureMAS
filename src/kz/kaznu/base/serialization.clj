@@ -1,4 +1,4 @@
-(ns base.serialization)
+(ns kz.kaznu.base.serialization)
 
 (defn seri[x]
   (if (instance? String x)

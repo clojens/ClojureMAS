@@ -88,3 +88,5 @@ dependencies
 ============
 
 A client depends on serizlization and doesn't depend on the server. But the server does depend both on serizlization and on the client. This is because server can also use remote methods
+
+Package "base" does not have any dependencies so it can be used in other projects.

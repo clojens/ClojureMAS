@@ -1,8 +1,8 @@
-(ns service.web
+(ns kz.kaznu.service.web
   "This namespace is for behaviour of the server, how it should reply, what routes etc"
   (:use compojure.core)
   (:use ring.middleware.json-params)
-  (:require base.serialization)
+  (:require kz.kaznu.base.serialization)
   (:require [clj-json.core :as json]))
 
 (defn json-response [data & [status]]
@@ -18,10 +18,10 @@
   (try
     (print-out (str (java.util.Date.)))
     (print-out "expr          = " expr)
-    (let [r (eval (base.serialization/deseri expr))]
+    (let [r (eval (kz.kaznu.base.serialization/deseri expr))]
       (print-out "evaled value  = " r)
       (print-out "evaled type   = " (type r))
-      (str "(:done " (base.serialization/seri r) ")"))
+      (str "(:done " (kz.kaznu.base.serialization/seri r) ")"))
     (catch Exception e
       (print-out "error occured = " e)
       (str "(:error \"" e "\")"))
