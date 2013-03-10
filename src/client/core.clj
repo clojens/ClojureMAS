@@ -1,8 +1,38 @@
 (ns client.core
   "Defines repl and remote repl for client"
+  (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
+  (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder])
   (:gen-class)
   (:require base.serialization)
   (:require [clj-http.client :as client]))
+
+;; requesting http through java API
+
+(defn request-get[ address ]
+  (let [url      (URL. address)
+        conn     (.openConnection url)]
+    (try
+      (doto conn
+        (.setRequestMethod "GET")
+        (.setDoOutput true)
+        (.setReadTimeout 10000)
+        (.connect))
+
+      (let [inp (BufferedReader. (InputStreamReader. (.getInputStream conn)))
+            sb  (StringBuilder.)
+            res (loop [line (.readLine inp)]
+                  (if line
+                    (do (.append sb (str line "\n"))
+                        (recur (.readLine inp)))
+                    (.toString sb)))]
+        res)
+      (catch Exception ex
+        (.printStackTrace ex)
+        ex)
+      (finally
+       (.disconnect conn)))))
+
+;; other things
 
 (defn catch-all[ fun ]
   (fn[& xs]
@@ -10,11 +40,10 @@
          (catch Exception ex `(:error ~(str ex))))))
 
 (defn runr[addr expr]
-  (let [expr-str     (clj-http.util/url-encode (base.serialization/seri expr))
+  (let [expr-str     (URLEncoder/encode (base.serialization/seri expr) "UTF-8")
         encoded-dots (clojure.string/replace expr-str "." "%2E")
         request-str  (str addr "/repl/" encoded-dots)]
-    ;; (print request-str)
-    (read-string (:body (client/get request-str)))))
+    (read-string (request-get request-str))))
 
 (defn prompt-read[ x ]
   (print (str x ">"))

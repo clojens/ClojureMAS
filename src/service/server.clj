@@ -21,7 +21,7 @@
       (.start server)
       server)))
 
-(defn server-shutdown
+(defn server-stop
   "Tries to find a server by port and stop it"
    [ port ]
   (let [ server (@local-servers port) ]
