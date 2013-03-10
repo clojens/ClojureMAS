@@ -3,8 +3,7 @@
   (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
   (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder])
   (:gen-class)
-  (:require base.serialization)
-  (:require [clj-http.client :as client]))
+  (:require base.serialization))
 
 ;; requesting http through java API
 
