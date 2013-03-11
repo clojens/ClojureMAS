@@ -7,7 +7,9 @@
   (:gen-class)
   (:require kz.kaznu.base.serialization))
 
-(defn runr[addr expr]
+(defn runr
+  "address must be like \"http://localhost:3000\" and expr is an expr to evaluate"
+  [addr expr]
   (let [expr-str     (URLEncoder/encode (kz.kaznu.base.serialization/seri expr) "UTF-8")
         encoded-dots (clojure.string/replace expr-str "." "%2E")
         request-str  (str addr "/repl/" encoded-dots)]

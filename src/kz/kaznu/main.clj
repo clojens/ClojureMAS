@@ -1,6 +1,7 @@
 (ns kz.kaznu.main
   "Entry point of a program"
   (:use kz.kaznu.base.client)
+  (:use kz.kaznu.base.utils)
   (:use kz.kaznu.service.server)
   (:use clojure.repl)
   (:gen-class))
