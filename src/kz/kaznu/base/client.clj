@@ -14,7 +14,6 @@
     (try
       (doto conn
         (.setRequestMethod "GET")
-        (.setDoOutput true)
         (.setReadTimeout 10000)
         (.connect))
 
