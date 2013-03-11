@@ -3,53 +3,9 @@
   (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
   (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder NetworkInterface])
   (:require clojure.string)
+  (:use kz.kaznu.base.utils)
   (:gen-class)
   (:require kz.kaznu.base.serialization))
-
-;; requesting http through java API
-
-(defn request-get[ address ]
-  (let [url      (URL. address)
-        conn     (.openConnection url)]
-    (try
-      (doto conn
-        (.setRequestMethod "GET")
-        (.setReadTimeout 10000)
-        (.connect))
-
-      (let [inp (BufferedReader. (InputStreamReader. (.getInputStream conn)))
-            sb  (StringBuilder.)
-            res (loop [line (.readLine inp)]
-                  (if line
-                    (do (.append sb (str line "\n"))
-                        (recur (.readLine inp)))
-                    (.toString sb)))]
-        res)
-      (catch Exception ex
-        (.printStackTrace ex)
-        ex)
-      (finally
-       (.disconnect conn)))))
-
-;; utils
-
-(def ip
-  (let [ifc (NetworkInterface/getNetworkInterfaces)
-        ifsq (enumeration-seq ifc)
-        ifmp (map #(bean %) ifsq)
-        ipsq (filter #(false? (% :loopback)) ifmp)
-        ipa (map :interfaceAddresses ipsq)
-        ipaf (nth ipa 0)
-        ipafs (.split (str ipaf) " " )
-        ips (first (nnext ipafs))]
-    (str (second (.split ips "/")))))
-
-(defn catch-all[ fun ]
-  (fn[& xs]
-    (try (apply fun xs)
-         (catch Exception ex `(:error ~(str ex))))))
-
-;; other things
 
 (defn runr[addr expr]
   (let [expr-str     (URLEncoder/encode (kz.kaznu.base.serialization/seri expr) "UTF-8")
