@@ -2,6 +2,7 @@
   "This namespace for functions on server: starting closing, starting in new thread etc"
   (:require [ring.adapter.jetty :as jetty])
   (:require kz.kaznu.service.web)
+  (:import (java.net BindException))
   (:gen-class))
 
 (defonce local-servers (atom {})) ; { port server }
@@ -9,14 +10,17 @@
 ;; public API
 
 (defn server-start 
-  "Starts a server on port. If no association with a server creates new one"
+  "Starts a server on port. If no association with a server creates new one returns created server or nil if it couldn't create it"
   [ port ]
   (println "Starting server")
   (if (= (@local-servers port) nil)
-    (let [server (jetty/run-jetty kz.kaznu.service.web/handler
-                                  {:port port :join? false})]
-      (swap! local-servers assoc port server)
-      server)
+    (try
+      (let [server (jetty/run-jetty kz.kaznu.service.web/handler
+                                    {:port port :join? false})]
+        (swap! local-servers assoc port server)
+        server)
+      (catch BindException ex
+        nil))
     (let [server (@local-servers port)]
       (.start server)
       server)))
