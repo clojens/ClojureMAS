@@ -1,7 +1,7 @@
 (ns kz.kaznu.base.client
   "Defines repl and remote repl for client"
   (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
-  (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder])
+  (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder NetworkInterface])
   (:require clojure.string)
   (:gen-class)
   (:require kz.kaznu.base.serialization))
@@ -31,12 +31,25 @@
       (finally
        (.disconnect conn)))))
 
-;; other things
+;; utils
+
+(def ip
+  (let [ifc (NetworkInterface/getNetworkInterfaces)
+        ifsq (enumeration-seq ifc)
+        ifmp (map #(bean %) ifsq)
+        ipsq (filter #(false? (% :loopback)) ifmp)
+        ipa (map :interfaceAddresses ipsq)
+        ipaf (nth ipa 0)
+        ipafs (.split (str ipaf) " " )
+        ips (first (nnext ipafs))]
+    (str (second (.split ips "/")))))
 
 (defn catch-all[ fun ]
   (fn[& xs]
     (try (apply fun xs)
          (catch Exception ex `(:error ~(str ex))))))
+
+;; other things
 
 (defn runr[addr expr]
   (let [expr-str     (URLEncoder/encode (kz.kaznu.base.serialization/seri expr) "UTF-8")
