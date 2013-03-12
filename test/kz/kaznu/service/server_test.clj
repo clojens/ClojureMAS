@@ -6,7 +6,7 @@
 (defn create-eval-stop-testfun [ port expr ]
   (when (not (server-running? port))
     (server-start port))
-  (let [r (runr (str "http://localhost:" port) expr)]
+  (let [r (runr (str "localhost:" port) expr)]
     (server-stop port)
     r))
 
@@ -40,11 +40,11 @@
       (is (= '(:done "1.2, 1/2")
              (create-eval-stop-testfun 1339 "1.2, 1/2")))
      (is (= '(:done (:done 4))
-            (create-eval-stop-testfun 4000 '(kz.kaznu.base.client/runr "http://localhost:4000" '(+ 2 2)))))
+            (create-eval-stop-testfun 4000 '(kz.kaznu.base.client/runr "localhost:4000" '(+ 2 2)))))
       (is (= '(:done 13)
              (create-eval-stop-testfun 4000
                    '(let [[done-or-error res & _]
-                          (kz.kaznu.base.client/runr "http://localhost:4000" '(+ 2 2))]
+                          (kz.kaznu.base.client/runr "localhost:4000" '(+ 2 2))]
                       (when (= done-or-error :done)
                         (+ res (* 3 3))))))
           "complicated runr-request in runr-request"))
