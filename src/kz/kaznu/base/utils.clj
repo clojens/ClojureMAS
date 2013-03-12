@@ -1,7 +1,7 @@
 (ns kz.kaznu.base.utils
   "Defines repl and remote repl for client"
   (:import [java.io BufferedReader IOException InputStreamReader OutputStreamWriter])
-  (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder NetworkInterface])
+  (:import [java.net HttpURLConnection MalformedURLException ProtocolException URL URLEncoder NetworkInterface InetAddress Inet4Address])
   (:require clojure.string)
   (:gen-class)
   (:require kz.kaznu.base.serialization))
@@ -36,11 +36,12 @@
 (defn get-ips[]
   (let [interface-to-addresses
         (fn[interface]
-          (let [ipafs     (.split (str (.getInterfaceAddresses interface)) " ")
-                ips       (first (nnext ipafs))
-                splitted  (.split ips "/")]
-            [(str (second splitted))
-             (str (nth splitted 2))]))
+          (let [iaddrs   (first (filter #(instance? Inet4Address
+                                                     (.getAddress %))
+                                         (.getInterfaceAddresses interface)))]
+            {:ip        (.getHostName (.getAddress iaddrs)),
+             :prefix    (.getNetworkPrefixLength iaddrs),
+             :broadcast (.getHostName (.getBroadcast iaddrs))}))
         interfaces (NetworkInterface/getNetworkInterfaces)
         ipsq       (filter #(not (.isLoopback %)) (enumeration-seq interfaces))
         ]
