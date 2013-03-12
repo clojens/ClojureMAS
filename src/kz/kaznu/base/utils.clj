@@ -33,14 +33,18 @@
       (finally
        (.disconnect conn)))))
 
-(defn get-ip[]
-  (let [ifc (NetworkInterface/getNetworkInterfaces)
-        ipsq (filter #(not (.isLoopback %)) (enumeration-seq ifc))
-        ipa  (map #(.getInterfaceAddresses %) ipsq)
-        ipaf (nth ipa 0)
-        ipafs (.split (str ipaf) " ")
-        ips (first (nnext ipafs))]
-    (str (second (.split ips "/")))))
+(defn get-ips[]
+  (let [interface-to-addresses
+        (fn[interface]
+          (let [ipafs     (.split (str (.getInterfaceAddresses interface)) " ")
+                ips       (first (nnext ipafs))
+                splitted  (.split ips "/")]
+            [(str (second splitted))
+             (str (nth splitted 2))]))
+        interfaces (NetworkInterface/getNetworkInterfaces)
+        ipsq       (filter #(not (.isLoopback %)) (enumeration-seq interfaces))
+        ]
+    (map interface-to-addresses ipsq)))
 
 ;; other kind of utils
 
