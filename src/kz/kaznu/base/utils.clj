@@ -45,7 +45,7 @@
         interfaces (NetworkInterface/getNetworkInterfaces)
         ipsq       (filter #(not (.isLoopback %)) (enumeration-seq interfaces))
         ]
-    (map interface-to-addresses ipsq)))
+    (into [] (map interface-to-addresses ipsq))))
 
 ;; other kind of utils
 

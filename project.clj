@@ -3,8 +3,8 @@
   :url "http://github.com:fallen-s4e/ClojureMAS"
   :main kz.kaznu.main
   :dependencies
-    [[org.clojure/clojure "1.3.0"]
-     ;[android/clojure "1.4.0"]
+    [;[org.clojure/clojure "1.3.0"]
+     [android/clojure "1.4.0"]
      [ring/ring-jetty-adapter "0.2.5"]
      [ring-json-params "0.1.0"]
      [compojure "0.4.0"]
